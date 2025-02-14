@@ -95,9 +95,10 @@ ros2 run rdk_qa pub
 
 1. 这里需要填入bin模型的地址做为参数，请根据实际情况填入kws.bin以及wav2vec2_outpu_30000.bin文件路径
 2. 这里需要填入的llm_api_key为`环境准备`步骤中申请的api_key，将其复制到这里即可
+3. 这里需要填入的vocab_path为github克隆时自带的`vocab.json`文件，请根据实际情况填写其路径，建议填写绝对路径
 
 ```
-ros2 run rdk_qa sub --ros-args -p llm_api_key:=None -p kws_bin_path:=None -p asr_bin_path:=None
+ros2 run rdk_qa sub --ros-args -p llm_api_key:=None -p kws_bin_path:=None -p asr_bin_path:=None -p vocab_path:=None
 ```
 
 启动订阅节点后，我们看到`[audio_sub]: FINISHED LOADING MODEL, START AWAKEN..`的回显，则表示所有本地模型已经完成加载，此刻可以进行唤醒。

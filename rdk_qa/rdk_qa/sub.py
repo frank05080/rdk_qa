@@ -56,6 +56,7 @@ class AudioSub(Node):
         self.api_key = self.get_ros_param("llm_api_key", "None")
         self.kws_bin_path = self.get_ros_param("kws_bin_path", "None")
         self.asr_bin_path = self.get_ros_param("asr_bin_path", "None")
+        self.vocab_path = self.get_ros_param("vocab_path", "None")
         
         self.check_params()
         
@@ -99,7 +100,7 @@ class AudioSub(Node):
             n_mels=80,
         )
         
-        with open("/root/wav2vec2/vocab.json", "r", encoding="utf-8-sig") as f:
+        with open(self.vocab_path, "r", encoding="utf-8-sig") as f:
             d = eval(f.read())
         self.asr_dict = dict((v, k) for k, v in d.items())
         self.asr_dict[69] = "[PAD]"
@@ -117,7 +118,8 @@ class AudioSub(Node):
         missing_params = {
             "LLM API key": self.api_key,
             "KWS bin path": self.kws_bin_path,
-            "ASR bin path": self.asr_bin_path
+            "ASR bin path": self.asr_bin_path,
+            "VOCAB json path": self.vocab_path
         }
         for name, value in missing_params.items():
             if value == "None":
